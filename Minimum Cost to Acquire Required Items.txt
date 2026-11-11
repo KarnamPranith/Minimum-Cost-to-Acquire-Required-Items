@@ -1,0 +1,19 @@
+class Solution:
+    def minimumCost(self, cost1: int, cost2: int, costBoth: int, need1: int, need2: int) -> int:
+
+        # Option 1: Buy separate items
+        separate = cost1 * need1 + cost2 * need2
+
+        # Option 2: Buy items covering both requirements
+        both = costBoth * max(need1, need2)
+
+        # Option 3: Buy common items for minimum requirement
+        common = costBoth * min(need1, need2)
+        remaining = abs(need1 - need2)
+
+        if need1 > need2:
+            common += cost1 * remaining
+        else:
+            common += cost2 * remaining
+
+        return min(separate, both, common)
